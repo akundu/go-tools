@@ -15,9 +15,10 @@ func main() {
 			fmt.Println(urng.GenerateNumber())
 		}
 	case "n":
-		grng := distr.NewgaussianGenerator(*lower_bound_ptr, *upper_bound_ptr-1)
-		num_list := grng.GenerateNumbers(*num_to_generate_ptr)
+		grng := distr.NewgaussianGenerator(*lower_bound_ptr, *upper_bound_ptr-1, *num_to_generate_ptr)
+		num_list := grng.GenerateNumbers()
 		for _, num := range num_list {
+			// num = num + 1
 			fmt.Println(num)
 		}
 	default:
