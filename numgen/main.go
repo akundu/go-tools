@@ -3,22 +3,23 @@ package main
 import (
 	"flag"
 	"fmt"
-	"time"
 
-	rng "github.com/leesper/go_rng"
+	distr "github.com/akundu/utilities/statistics/distribution"
 )
 
 func main() {
 	switch *mode_ptr {
 	case "r":
-		urng := rng.NewUniformGenerator(time.Now().UnixNano())
+		urng := distr.NewuniformGenerator(*lower_bound_ptr, *upper_bound_ptr)
 		for i := 0; i < *num_to_generate_ptr; i++ {
-			fmt.Println(urng.Int32Range(int32(*lower_bound_ptr), int32(*upper_bound_ptr)))
+			fmt.Println(urng.GenerateNumber())
 		}
 	case "n":
-		grng := rng.NewGaussianGenerator(time.Now().UnixNano())
-		for i := 0; i < *num_to_generate_ptr; i++ {
-			fmt.Println(grng.StdGaussian())
+		grng := distr.NewgaussianGenerator(*lower_bound_ptr, *upper_bound_ptr-1, *num_to_generate_ptr)
+		num_list := grng.GenerateNumbers()
+		for _, num := range num_list {
+			// num = num + 1
+			fmt.Println(num)
 		}
 	default:
 		panic("didnt get a valid mode type")
